@@ -1,8 +1,11 @@
 package com.fiap.sus.liveops.modules.attendance.controller;
 
 import com.fiap.sus.liveops.modules.attendance.document.Attendance;
+import com.fiap.sus.liveops.modules.attendance.dto.AttendanceResponse;
+import com.fiap.sus.liveops.modules.attendance.dto.CompleteAttendanceResponse;
 import com.fiap.sus.liveops.modules.attendance.dto.StatusUpdateRequest;
 import com.fiap.sus.liveops.modules.attendance.dto.TriageRequest;
+import com.fiap.sus.liveops.modules.attendance.mapper.AttendanceMapper;
 import com.fiap.sus.liveops.modules.attendance.service.AttendanceService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,26 +21,29 @@ import java.net.URI;
 public class AttendanceController {
 
     private final AttendanceService attendanceService;
+    private final AttendanceMapper mapper;
 
     @PostMapping("/triage")
-    public ResponseEntity<Attendance> startTriage(
+    public ResponseEntity<AttendanceResponse> startTriage(
             @RequestBody @Valid TriageRequest request,
             UriComponentsBuilder uriBuilder
     ) {
         Attendance attendance = attendanceService.startTriage(request);
+        AttendanceResponse response = mapper.toResponse(attendance);
 
         URI uri = uriBuilder.path("/attendances/{id}").buildAndExpand(attendance.getId()).toUri();
 
-        return ResponseEntity.created(uri).body(attendance);
+        return ResponseEntity.created(uri).body(response);
     }
 
     @PatchMapping("/{id}/status")
-    public ResponseEntity<Attendance> updateStatus(
+    public ResponseEntity<CompleteAttendanceResponse> updateStatus(
             @PathVariable String id,
             @RequestBody @Valid StatusUpdateRequest request
     ) {
         Attendance updatedAttendance = attendanceService.updateStatus(id, request);
-        return ResponseEntity.ok(updatedAttendance);
+        CompleteAttendanceResponse response = mapper.toCompleteResponse(updatedAttendance);
+        return ResponseEntity.ok(response);
     }
 
 }

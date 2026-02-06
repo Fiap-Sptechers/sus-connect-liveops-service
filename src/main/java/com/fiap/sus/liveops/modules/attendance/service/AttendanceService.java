@@ -1,5 +1,6 @@
 package com.fiap.sus.liveops.modules.attendance.service;
 
+import com.fiap.sus.liveops.core.exception.InvalidAttendanceStatusException;
 import com.fiap.sus.liveops.core.exception.ResourceNotFoundException;
 import com.fiap.sus.liveops.modules.attendance.document.Attendance;
 import com.fiap.sus.liveops.modules.attendance.document.embedded.Patient;
@@ -40,6 +41,8 @@ public class AttendanceService {
         Attendance attendance = attendanceRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Attendance not found with ID: " + id));
 
+        validateStatusTransition(attendance.getStatus(), request.newStatus());
+
         AttendanceStatus newStatus = request.newStatus();
         attendance.setStatus(newStatus);
 
@@ -50,6 +53,22 @@ public class AttendanceService {
         }
 
         return attendanceRepository.save(attendance);
+    }
+
+    protected void validateStatusTransition(AttendanceStatus actualStatus, AttendanceStatus newStatus) {
+
+        if (actualStatus == AttendanceStatus.DISCHARGED) {
+            throw new InvalidAttendanceStatusException("Cannot change status of a discharged attendance. Start a new attendance.");
+        }
+
+        if (actualStatus == AttendanceStatus.WAITING && newStatus == AttendanceStatus.DISCHARGED) {
+            throw new InvalidAttendanceStatusException("Invalid status transition from WAITING to DISCHARGED.");
+        }
+
+        if (actualStatus == AttendanceStatus.IN_PROGRESS && newStatus == AttendanceStatus.WAITING) {
+            throw new InvalidAttendanceStatusException("Invalid status transition from IN_PROGRESS to WAITING.");
+        }
+
     }
 
 }
