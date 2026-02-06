@@ -35,6 +35,11 @@ public class AttendanceService {
         return attendanceRepository.save(attendance);
     }
 
+    public Attendance getAttendanceById(String id) {
+        return attendanceRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Attendance not found with ID: " + id));
+    }
+
     public Attendance updateStatus(String id, StatusUpdateRequest request) {
         log.info("Updating attendance {} to status {}", id, request.newStatus());
 

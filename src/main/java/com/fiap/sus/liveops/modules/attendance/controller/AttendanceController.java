@@ -36,6 +36,13 @@ public class AttendanceController {
         return ResponseEntity.created(uri).body(response);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<CompleteAttendanceResponse> getAttendanceById(@PathVariable String id) {
+        Attendance attendance = attendanceService.getAttendanceById(id);
+        CompleteAttendanceResponse response = mapper.toCompleteResponse(attendance);
+        return ResponseEntity.ok(response);
+    }
+
     @PatchMapping("/{id}/status")
     public ResponseEntity<CompleteAttendanceResponse> updateStatus(
             @PathVariable String id,

@@ -9,6 +9,7 @@ public record CompleteAttendanceResponse(
         String id,
         String healthUnitId,
         String patientName,
+        String patientCpf,
         AttendanceStatus status,
         RiskClassification riskClassification,
         LocalDateTime entryTime,

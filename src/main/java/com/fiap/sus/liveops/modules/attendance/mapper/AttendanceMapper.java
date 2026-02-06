@@ -13,6 +13,7 @@ public interface AttendanceMapper {
     AttendanceResponse toResponse(Attendance entity);
 
     @Mapping(source = "patient.name", target = "patientName")
+    @Mapping(source = "patient.cpf", target = "patientCpf")
     CompleteAttendanceResponse toCompleteResponse(Attendance entity);
 
 }
