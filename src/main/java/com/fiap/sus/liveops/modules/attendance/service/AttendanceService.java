@@ -6,7 +6,7 @@ import com.fiap.sus.liveops.modules.attendance.document.Attendance;
 import com.fiap.sus.liveops.modules.attendance.document.embedded.Patient;
 import com.fiap.sus.liveops.modules.attendance.dto.StatusUpdateRequest;
 import com.fiap.sus.liveops.modules.attendance.dto.TriageRequest;
-import com.fiap.sus.liveops.modules.attendance.enums.AttendanceStatus;
+import com.fiap.sus.liveops.shared.enums.AttendanceStatus;
 import com.fiap.sus.liveops.modules.attendance.repository.AttendanceRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

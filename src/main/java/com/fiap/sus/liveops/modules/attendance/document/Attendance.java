@@ -1,8 +1,8 @@
 package com.fiap.sus.liveops.modules.attendance.document;
 
 import com.fiap.sus.liveops.modules.attendance.document.embedded.Patient;
-import com.fiap.sus.liveops.modules.attendance.enums.AttendanceStatus;
-import com.fiap.sus.liveops.modules.attendance.enums.RiskClassification;
+import com.fiap.sus.liveops.shared.enums.AttendanceStatus;
+import com.fiap.sus.liveops.shared.enums.RiskClassification;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;

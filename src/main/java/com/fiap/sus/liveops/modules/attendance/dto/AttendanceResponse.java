@@ -1,7 +1,7 @@
 package com.fiap.sus.liveops.modules.attendance.dto;
 
-import com.fiap.sus.liveops.modules.attendance.enums.AttendanceStatus;
-import com.fiap.sus.liveops.modules.attendance.enums.RiskClassification;
+import com.fiap.sus.liveops.shared.enums.AttendanceStatus;
+import com.fiap.sus.liveops.shared.enums.RiskClassification;
 
 import java.time.LocalDateTime;
 

@@ -5,7 +5,7 @@ import com.fiap.sus.liveops.core.exception.ResourceNotFoundException;
 import com.fiap.sus.liveops.modules.attendance.document.Attendance;
 import com.fiap.sus.liveops.modules.attendance.dto.StatusUpdateRequest;
 import com.fiap.sus.liveops.modules.attendance.dto.TriageRequest;
-import com.fiap.sus.liveops.modules.attendance.enums.AttendanceStatus;
+import com.fiap.sus.liveops.shared.enums.AttendanceStatus;
 import com.fiap.sus.liveops.modules.attendance.repository.AttendanceRepository;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

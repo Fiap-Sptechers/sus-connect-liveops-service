@@ -1,6 +1,6 @@
 package com.fiap.sus.liveops.modules.attendance.dto;
 
-import com.fiap.sus.liveops.modules.attendance.enums.RiskClassification;
+import com.fiap.sus.liveops.shared.enums.RiskClassification;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 

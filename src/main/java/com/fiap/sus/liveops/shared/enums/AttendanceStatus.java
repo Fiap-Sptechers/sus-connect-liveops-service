@@ -1,4 +1,4 @@
-package com.fiap.sus.liveops.modules.attendance.enums;
+package com.fiap.sus.liveops.shared.enums;
 
 public enum AttendanceStatus {
 
