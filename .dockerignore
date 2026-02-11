@@ -1,0 +1,12 @@
+.gradle/
+build/
+out/
+.git/
+.idea/
+*.iml
+logs/
+.DS_Store
+HELP.md
+gradlew
+gradlew.bat
+gradle/

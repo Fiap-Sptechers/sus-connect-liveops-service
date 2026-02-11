@@ -1,0 +1,68 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.DS_Store
+
+# Build artifacts
+target/
+build/
+out/
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
+# Maven
+.mvn/
+mvnw
+mvnw.cmd
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Test files
+src/test/
+*.test
+*.spec
+
+# Scripts locais
+start-all.sh
+stop-all.sh
+
+# Data directories
+data/
+logs/
+tmp/
+
+# Docker (manter apenas Dockerfile)
+docker-compose*.yml
+.dockerignore
+
+# CI/CD (manter cloudbuild.yaml)
+.github/
+.gitlab-ci.yml
+.travis.yml
+Jenkinsfile
+
+# Documentation (opcional - manter se necessário)
+*.md
+!README.md
+
+# Other
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
