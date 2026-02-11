@@ -1,0 +1,59 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'build-image'
+    args:
+      - 'build'
+      - '--build-arg'
+      - 'BUILDKIT_INLINE_CACHE=1'
+      - '-t'
+      - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_ARTIFACT_REGISTRY_REPO}/${_SERVICE_NAME}:$SHORT_SHA'
+      - '-t'
+      - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_ARTIFACT_REGISTRY_REPO}/${_SERVICE_NAME}:latest'
+      - '-f'
+      - 'Dockerfile'
+      - '.'
+
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'push-image'
+    args:
+      - 'push'
+      - '--all-tags'
+      - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_ARTIFACT_REGISTRY_REPO}/${_SERVICE_NAME}'
+    waitFor: ['build-image']
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    id: 'deploy-cloud-run'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - '${_SERVICE_NAME}'
+      - '--image'
+      - '${_REGION}-docker.pkg.dev/$PROJECT_ID/${_ARTIFACT_REGISTRY_REPO}/${_SERVICE_NAME}:$SHORT_SHA'
+      - '--platform'
+      - 'managed'
+      - '--region'
+      - '${_REGION}'
+      - '--allow-unauthenticated'
+      - '--memory'
+      - '1Gi'
+      - '--cpu'
+      - '1'
+      - '--port'
+      - '8080'
+      - '--set-env-vars'
+      - 'SPRING_PROFILES_ACTIVE=cloud'
+
+      - '--set-secrets'
+      - 'SPRING_DATA_MONGODB_URI=liveops-mongodb-uri:latest'
+      - '--set-secrets'
+      - 'NETWORK_PUBLIC_KEY=liveops-network-public-key:latest'
+      - '--set-secrets'
+      - 'TRAFFIC_PUBLIC_KEY=liveops-traffic-public-key:latest'
+
+    waitFor: ['push-image']
+
+substitutions:
+  _REGION: us-central1
+  _ARTIFACT_REGISTRY_REPO: sus-connect
+  _SERVICE_NAME: liveops-service
