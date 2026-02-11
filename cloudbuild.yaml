@@ -43,7 +43,6 @@ steps:
       - '8080'
       - '--set-env-vars'
       - 'SPRING_PROFILES_ACTIVE=cloud'
-
       - '--set-secrets'
       - 'SPRING_DATA_MONGODB_URI=liveops-mongodb-uri:latest'
       - '--set-secrets'
@@ -56,4 +55,4 @@ steps:
 substitutions:
   _REGION: us-central1
   _ARTIFACT_REGISTRY_REPO: sus-connect
-  _SERVICE_NAME: liveops-service
+  _SERVICE_NAME: sus-connect-liveops-service
