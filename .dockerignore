@@ -4,6 +4,7 @@ out/
 .git/
 .idea/
 *.iml
+.pem
 logs/
 .DS_Store
 HELP.md
