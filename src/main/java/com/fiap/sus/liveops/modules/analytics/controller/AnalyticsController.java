@@ -3,6 +3,8 @@ package com.fiap.sus.liveops.modules.analytics.controller;
 import com.fiap.sus.liveops.modules.analytics.dto.UnitAnalytics;
 import com.fiap.sus.liveops.modules.analytics.dto.UnitMetrics;
 import com.fiap.sus.liveops.modules.analytics.service.AnalyticsService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
