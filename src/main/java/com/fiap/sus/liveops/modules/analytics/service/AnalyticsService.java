@@ -93,7 +93,7 @@ public class AnalyticsService {
 
     protected long getGeneralWeightedWait(List<Attendance> attendances) {
         List<Attendance> servedPatients = attendances.stream()
-                .filter(a -> a.getStartTime() != null)
+                .filter(a -> a.getEntryTime() != null)
                 .toList();
 
         return calculateWeightedWaitTime(servedPatients);
