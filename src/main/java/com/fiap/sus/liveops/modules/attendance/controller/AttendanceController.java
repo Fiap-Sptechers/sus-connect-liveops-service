@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.List;
 import java.net.URI;
 
 @RestController
@@ -34,6 +35,15 @@ public class AttendanceController {
         URI uri = uriBuilder.path("/attendances/{id}").buildAndExpand(attendance.getId()).toUri();
 
         return ResponseEntity.created(uri).body(response);
+    }
+
+    @GetMapping("/unit/{unitId}")
+    public ResponseEntity<List<AttendanceResponse>> listByUnitId(@PathVariable String unitId) {
+        return ResponseEntity.ok(
+                attendanceService.listByHealthUnitId(unitId).stream()
+                        .map(mapper::toResponse)
+                        .toList()
+        );
     }
 
     @GetMapping("/{id}")

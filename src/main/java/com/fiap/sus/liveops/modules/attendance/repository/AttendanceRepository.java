@@ -15,6 +15,8 @@ public interface AttendanceRepository extends MongoRepository<Attendance, String
 
     List<Attendance> findByHealthUnitIdAndStatusNot(String healthUnitId, AttendanceStatus attendanceStatus);
 
+    List<Attendance> findByHealthUnitId(String healthUnitId);
+
     List<Attendance> findByHealthUnitIdAndEntryTimeAfter(String healthUnitId, LocalDateTime cutoffDate);
 
 }

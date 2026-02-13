@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.time.LocalDateTime;
 
 @Slf4j
@@ -35,20 +36,24 @@ public class AttendanceService {
         return attendanceRepository.save(attendance);
     }
 
+    public List<Attendance> listByHealthUnitId(String healthUnitId) {
+        return attendanceRepository.findByHealthUnitId(healthUnitId);
+    }
+
     public Attendance getAttendanceById(String id) {
         return attendanceRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Attendance not found with ID: " + id));
     }
 
     public Attendance updateStatus(String id, StatusUpdateRequest request) {
-        log.info("Updating attendance {} to status {}", id, request.newStatus());
+        log.info("Updating attendance {} to status {}", id, request.status());
 
         Attendance attendance = attendanceRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Attendance not found with ID: " + id));
 
-        validateStatusTransition(attendance.getStatus(), request.newStatus());
+        validateStatusTransition(attendance.getStatus(), request.status());
 
-        AttendanceStatus newStatus = request.newStatus();
+        AttendanceStatus newStatus = request.status();
         attendance.setStatus(newStatus);
 
         if (newStatus == AttendanceStatus.IN_PROGRESS) {

@@ -67,12 +67,19 @@ public class SecurityConfig {
 
     private JwtDecoder buildDecoderFromKey(String publicKeyContent) {
         try {
-            String key = publicKeyContent
+            String cleanKey = publicKeyContent
                     .replace("-----BEGIN PUBLIC KEY-----", "")
-                    .replace("-----END PUBLIC KEY-----", "")
-                    .replaceAll("\\s", "");
+                    .replace("-----END PUBLIC KEY-----", "");
 
-            byte[] keyBytes = Base64.getDecoder().decode(key);
+            String sanitizedKey = cleanKey
+                    .replace("\\n", "")
+                    .replace("\\r", "")
+                    .replace("\"", "")
+                    .replace("'", "")
+                    .replaceAll("\\s+", "")
+                    .replace("\\", "");
+
+            byte[] keyBytes = Base64.getDecoder().decode(sanitizedKey);
 
             X509EncodedKeySpec spec = new X509EncodedKeySpec(keyBytes);
             KeyFactory keyFactory = KeyFactory.getInstance("RSA");
