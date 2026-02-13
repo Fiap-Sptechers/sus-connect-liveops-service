@@ -49,6 +49,8 @@ steps:
       - 'NETWORK_PUBLIC_KEY=liveops-network-public-key:latest'
       - '--set-secrets'
       - 'TRAFFIC_PUBLIC_KEY=liveops-traffic-public-key:latest'
+      - '--set-secrets'
+      - 'SWAGGER_SERVER_URL=liveops-service-url:latest'
 
     waitFor: ['push-image']
 
