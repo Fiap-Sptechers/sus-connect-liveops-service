@@ -31,6 +31,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.1'
 
 	implementation 'io.mongock:mongock-springboot:5.4.0'
 	implementation 'io.mongock:mongodb-springdata-v4-driver:5.4.0'
